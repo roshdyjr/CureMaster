@@ -7,6 +7,7 @@ import Link from "next/link";
 import { DataTable } from "@/components/table/DataTable";
 import { columns } from "@/components/table/columns";
 import Loader from "@/components/Loader";
+import { useEffect, useState } from "react";
 
 const fetchAppointments = async () => {
   const response = await fetch("/api/appointments");
@@ -19,6 +20,9 @@ const fetchAppointments = async () => {
 };
 
 const Admin = () => {
+
+  const [appointment, setAppointment] = useState([]);
+
   const {
     data: appointments,
     isLoading,
@@ -31,6 +35,14 @@ const Admin = () => {
     staleTime: 0,
     retry: 3,
   });
+
+  useEffect(() => {
+    if (appointments) {
+      setAppointment(appointments);
+    }
+  }, [appointments]);
+
+
 
   console.log(appointments);
   if (isLoading) return <Loader />;
