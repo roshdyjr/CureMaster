@@ -137,7 +137,6 @@ export const updateAppointment = async ({
     // Send email notification
     await sendEmailNotification(subject, content, userId);
 
-    revalidatePath("/admin");
     return parseStringify(updatedAppointment);
   } catch (error) {
     console.log(error);

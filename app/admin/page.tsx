@@ -27,7 +27,11 @@ const Admin = () => {
     queryKey: ["appointments"],
     queryFn: fetchAppointments,
     refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+    staleTime: 0,
   });
+
+  
 
   if (isLoading) return <Loader />;
 
