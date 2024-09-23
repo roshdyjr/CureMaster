@@ -32,8 +32,7 @@ const Admin = () => {
     retry: 3,
   });
 
-  
-
+  console.log(appointments);
   if (isLoading) return <Loader />;
 
   if (error) return <div>Error loading appointments</div>;
