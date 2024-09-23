@@ -1,23 +1,14 @@
 "use client";
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import StatCard from "@/components/StatCard";
 import Image from "next/image";
 import Link from "next/link";
 import { DataTable } from "@/components/table/DataTable";
 import { columns } from "@/components/table/columns";
 import Loader from "@/components/Loader";
-import { Appointment } from "@/types/appwrite.types";
 
-
-interface AppointmentsResponse {
-  scheduledCount: number;
-  pendingCount: number;
-  cancelledCount: number;
-  documents: Appointment[];
-}
-
-const fetchAppointments = async (): Promise<AppointmentsResponse> => {
+const fetchAppointments = async () => {
   const response = await fetch("/api/appointments");
 
   if (!response.ok) {
@@ -28,26 +19,20 @@ const fetchAppointments = async (): Promise<AppointmentsResponse> => {
 };
 
 const Admin = () => {
-  const queryClient = useQueryClient();
-
-
   const {
     data: appointments,
     isLoading,
     error,
-  } = useQuery<AppointmentsResponse>({
+  } = useQuery({
     queryKey: ["appointments"],
     queryFn: fetchAppointments,
-    refetchInterval: 5000,
+    refetchInterval: 2000,
     refetchOnWindowFocus: true,
     staleTime: 0,
     retry: 3,
   });
 
-  // Invalidate and refetch appointments when mutations occur (e.g., scheduling or canceling)
-  const { mutate: refetchAppointments } = useMutation({
-    mutationFn: async () => queryClient.invalidateQueries(["appointments"]),
-  });
+  
 
   if (isLoading) return <Loader />;
 

@@ -103,9 +103,9 @@ export const updateAppointment = async ({
       throw new Error("Appointment not found");
     }
 
-    const smsMessage = `Hi, this SMS message is regarding your appointment with CureMaster${
+    const smsMessage = `Hi, this SMS message is regarding your appointment with CureMaster ${
       type === `schedule`
-        ? ` Your appointment has been scheduled for ${
+        ? `Your appointment has been scheduled for ${
             formatDateTime(appointment.schedule).dateTime
           } with Dr. ${appointment.primaryPhysician}`
         : `We regret to inform you that your appointment has been cancelled for the following reason(s). ${appointment.cancellationReason}
