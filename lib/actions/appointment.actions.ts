@@ -80,6 +80,7 @@ export const getRecentAppointmentList = async () => {
       documents: appointments.documents,
     };
 
+    revalidatePath("/admin");
     return parseStringify(data);
   } catch (error) {
     console.error("Error", error);
@@ -113,7 +114,6 @@ export const updateAppointment = async ({
     }
     `;
 
-
     //send SMS notification
     await sendSMSNotification(userId, smsMessage);
 
@@ -136,6 +136,8 @@ export const updateAppointment = async ({
 
     // Send email notification
     await sendEmailNotification(subject, content, userId);
+
+    revalidatePath("/admin");
 
     return parseStringify(updatedAppointment);
   } catch (error) {

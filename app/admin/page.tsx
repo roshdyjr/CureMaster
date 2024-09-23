@@ -45,6 +45,7 @@ const Admin = () => {
 
 
   console.log(appointments);
+  
   if (isLoading) return <Loader />;
 
   if (error) return <div>Error loading appointments</div>;
